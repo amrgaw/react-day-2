@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import ProductsArchive from "./components/products/products-archive";
+import Header from "./components/shared/header";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SingleProduct from "./components/products/single-product";
+import { useState } from "react";
+import AboutUs from "./components/about";
+import ContactUs from "./components/contact";
 
 function App() {
+  const [count, countVal] = useState(0);
+  function CounterInrease() {
+    countVal(count + 1);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter className="App">
+      <Header count={count} />
+      <Routes>
+        <Route path="/" element={<ProductsArchive InPro={CounterInrease} />} />
+        <Route path="/product/:id" element={<SingleProduct />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
